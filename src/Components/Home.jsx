@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from 'react'
-import { fetcNews } from '../api';
+import React, { useState } from 'react'
 
-export default function Home() {
-    const [data, setData] = useState([]);
-    const [layout, setLayout] = useState("list");
-    useEffect(() => {
-        const fetch = async() => {
-            const response = await fetcNews();
-            console.log(response);
-            setData(response);
-        }
-        fetch();
-    }, []);
-  console.log("data",data);
+import { fetchNewsFromAPI } from '../features/newsSlice';
+import { connect } from 'react-redux';
+
+function Home(props) {
+  console.log("props",props)
+  const { data } = props;
+  const [layout, setLayout] = useState("list");
+
+  console.log("data", data);
   return (
       <main
           className="mx-auto max-w bg-gray-200 mb-24"
@@ -46,9 +42,9 @@ export default function Home() {
                     <div className="flex flex-column">
                     <img src={article.urlToImage} alt={`${article.title}.jpg`} className="w-1/3 bg-gray" />    
                         <div className="h-4/5 flex flex-col justify-between text-xl font-light ml-4" x-show={`${layout} === 'list'`}>
-                        <p className='text-black text-lg md:text-base text-justify'>{article.description.slice(0,150)}...</p>
-                          <p className="text-right absolute right-0 bottom-0">
-                            <a href={article.url} target="_blank" className="uppercase text-base text-gray-600 hover:text-black">Read more →</a>
+                        <p className='text-black text-lg md:text-base text-justify'>{article.description}...</p>
+                          <p className="text-right font-bold absolute right-0 bottom-0">
+                            <a href={article.url} target="_blank" className="uppercase text-base text-green-600 hover:text-blue">Read more →</a>
                           </p>
                         </div>
                       </div>
@@ -60,3 +56,17 @@ export default function Home() {
 </main>
   )
 }
+
+const mapStateToProps = (state) => {
+  console.log("state", state.NEWS);
+  const edited_data = state.NEWS.news.filter((article,index) => {
+    if (article.author && article.description && article.url && article.urlToImage && article.title) {
+      return { id: index,...article };
+    }
+  })
+  return {
+    data: edited_data
+  }
+}
+
+export default connect(mapStateToProps)(Home);

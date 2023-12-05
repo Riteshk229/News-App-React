@@ -1,15 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { connect } from 'react-redux'
 import { Routes, Route } from 'react-router-dom'
 import './App.css'
 import Navbar from './Components/Navbar'
 import Home from './Components/Home'
+import { fetchNewsFromAPI } from './features/newsSlice'
 import {
   SignUp,
   SignIn,
   ErrorPage
 } from './Pages'
 
-function App() {
+function App(props) {
+  const {
+    getNews,
+  } = props;
+
+  useEffect(() => { 
+    getNews()
+  }, []);
   return (
     <>
       <Navbar />
@@ -23,5 +32,8 @@ function App() {
     </>
   )
 }
+const mapDispatchToProps = (dispatch) => ({
+  getNews:()=> dispatch(fetchNewsFromAPI()),
+})
 
-export default App
+export default connect(null,mapDispatchToProps)(App);

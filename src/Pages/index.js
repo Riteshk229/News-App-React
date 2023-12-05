@@ -1,4 +1,4 @@
-import ErrorPage from "./error-page";
+import ErrorPage from "../Components/error-page";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
