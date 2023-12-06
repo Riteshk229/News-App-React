@@ -1,8 +1,22 @@
 import { useState } from "react";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SignIn() {
+  const auth = getAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // const handleSignIn = async () => {
+  //   if (email && password) {
+  //     signInWithEmailAndPassword(auth, email, password)
+  //       .then((user) => {
+  //         localStorage.setItem("user", JSON.stringify(user.user));
+  //       })
+  //       .catch((error) => {
+  //         console.log(`${error.code}: ${error.message}`);
+  //     })
+  //     }
+  // }
 
   return (
     <>
@@ -61,6 +75,7 @@ export default function SignIn() {
 
             <div>
               <button
+                // onClick={handleSignIn}
                 type="submit"
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >

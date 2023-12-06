@@ -31,7 +31,7 @@ function NewsIitem(props) {
                         handleLike(article.id);
                         setIsFav(!isFav);
                     }}
-                      className="absolute top-0 right-0">
+                      className="absolute top-0.5 right-0.5 p-1">
                       {isFav
                           ? 
                           (<div className="text-red-600">

@@ -1,9 +1,26 @@
 import { useState } from "react";
+import { getAuth,createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function SignUp() {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirPassword, setConfirmPassword] = useState("");
+  const auth = getAuth();
+
+  // const handleSignUp = async() => {
+  //   if (name && email && password && confirPassword && password === confirPassword) {
+  //      await createUserWithEmailAndPassword(auth,email, password)
+  //       .then((user) => {
+  //         localStorage.setItem("user", user.user);
+  //       })
+  //       .catch((error) => {
+  //         console.log(`${error.code}: ${error.message}`);
+  //         alert(`${error.message}`);
+  //     })
+  //   }
+  // }
+
 
   return (
     <>
@@ -95,6 +112,7 @@ export default function SignUp() {
             <div>
               <button
                 type="submit"
+                // onClick={handleSignUp}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Create a new  account

@@ -13,6 +13,7 @@ import {
 import Article from './Pages/Article'
 
 function App(props) {
+  
   const {
     getNews,
     dispatch
@@ -38,4 +39,9 @@ const mapDispatchToProps = (dispatch) => ({
   getNews:()=> dispatch(fetchNewsFromAPI()),
 })
 
-export default connect(null,mapDispatchToProps)(App);
+const mapStateToProps = (state) => {
+  const localStoreage = window.localStorage;
+  return {}
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(App);
