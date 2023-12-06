@@ -1,5 +1,4 @@
 import axios from "axios";
-import localStoreage = win
 
 const API_ROOT = import.meta.env.VITE_API_ROOT_URL;
 const API_KEY = import.meta.env.VITE_NEWS_API_KEY;

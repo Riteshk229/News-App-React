@@ -6,9 +6,14 @@ export const fetchNewsFromAPI = createAsyncThunk(
     async (news, {fulfillWithValue,rejectWithValue}) => {
         try {
             const response = await fetchNews();
-            console.log("response",response.data);
             if (response.success) {
-                return fulfillWithValue(response.data);
+                const edited = response.data.filter((article,index) => {
+                    if (article.author && article.description && article.url && article.urlToImage && article.title) {
+                        const newArticle = { id: index, ...article };
+                        return newArticle;
+                    }
+                });
+                return fulfillWithValue(edited);
             }
         } catch (error) {
             throw rejectWithValue(error.message)
@@ -20,14 +25,20 @@ export const newsSlice = createSlice({
     name:"NEWS",
     initialState: {
         news: [],
+        fav: [],
         loading: false
     },
     reducers: {},
     extraReducers: (builder) => {
         builder.addCase(fetchNewsFromAPI.fulfilled, (state, action) => {
             state.loading = false;
-            console.log("action", action.payload);
-            state.news = action.payload;
+            const edited = action.payload.map((article, index) => {
+                return {
+                    id: index,
+                    ...article
+                }
+            })
+            state.news = edited
         })
         builder.addCase(fetchNewsFromAPI.pending, (state, action) => {
             state.loading = true;
@@ -37,5 +48,5 @@ export const newsSlice = createSlice({
         })
     }
 });
-// export const { } = newsSlice.actions;
+export const {} = newsSlice.actions;
 export default newsSlice.reducer;

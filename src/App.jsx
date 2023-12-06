@@ -10,15 +10,17 @@ import {
   SignIn,
   ErrorPage
 } from './Pages'
+import Article from './Pages/Article'
 
 function App(props) {
   const {
     getNews,
+    dispatch
   } = props;
 
   useEffect(() => { 
     getNews()
-  }, []);
+  }, [dispatch]);
   return (
     <>
       <Navbar />
@@ -26,9 +28,9 @@ function App(props) {
         <Route exact path='/' element={<Home/>}></Route>
         <Route exact path='/login' element={<SignIn/>}></Route>
         <Route exact path='/register' element={<SignUp/>}></Route>
+        <Route exact path='/news/:newsID' element={<Article />}></Route>
         <Route path='*' element={<ErrorPage/>}></Route>
       </Routes>
-      "halfhalfaf"
     </>
   )
 }
